@@ -15,7 +15,7 @@
 
     <body>
 
-		<script src="ressources/vue2.js"></script>
+		<script src="ressources/vue.js"></script>
 		<script src="ressources/modele2.js"></script>
 		<script src="ressources/controleur2.js"></script>
     </body>

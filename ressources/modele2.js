@@ -88,6 +88,69 @@ function Creature(nom, natureuh) {
 
 }
 
+/* Boutons d'action*/
+
+let nourrir = function(nom) {
+    nom.stats.faim += 60;
+    nom.stats.faim = statsSansExces(nom.stats.faim);
+    nom.stats.hygiene -= 5;
+    nom.stats.hygiene = statsSansExces(nom.stats.hygiene);
+}
+
+let nettoyer = function(nom) {
+    nom.stats.hygiene += 50;
+    nom.stats.hygiene = statsSansExces(nom.stats.hygiene);
+}
+
+let faireDormir = function(nom) {
+    nom.stats.sommeil += 80;
+    nom.stats.sommeil = statsSansExces(nom.stats.sommeil);
+    nom.stats.faim -= 30;
+    nom.stats.faim = statsSansExces(nom.stats.faim);
+    nom.stats.amusement -= 20;
+    nom.stats.amusement = statsSansExces(nom.stats.amusement);
+}
+
+let cajoler = function(nom) {
+    nom.stats.amusement += 10;
+    nom.stats.amusement = statsSansExces(nom.stats.amusement);
+    nom.competences.attachement += 0.25;
+    nom.caractere.gentillesse += 0.001;
+}
+
+let jouer = function(nom) {
+    nom.stats.amusement += 50;
+    nom.stats.amusement = statsSansExces(nom.stats.amusement);
+    nom.stats.sommeil -= 30;
+    nom.stats.sommeil = statsSansExces(nom.stats.sommeil);
+    nom.stats.hygiene -= 15;
+    nom.stats.hygiene = statsSansExces(nom.stats.hygiene);
+    nom.competences.force += 2;
+}
+
+let faireEtudier = function(nom) {
+    nom.stats.amusement -= 10;
+    nom.stats.amusement = statsSansExces(nom.stats.amusement);
+    nom.stats.sommeil -= 30;
+    nom.stats.sommeil = statsSansExces(nom.stats.sommeil);
+    nom.stats.faim -= 20;
+    nom.stats.faim = statsSansExces(nom.stats.faim);
+    nom.competences.intelligence += 3;
+}
+
+//régulation des stats (gérer les extrèmes)
+function statsSansExces(valeur) {
+    if (valeur > 120) {
+        valeur = 120;
+        return valeur;
+    } else if (valeur < -20) {
+        valeur = -20;
+        return valeur;
+    } else {
+        return valeur;
+    }
+}
+
 /* Gestion des sauvegardes de la créature */
 function sauvegarderDsLocalStorage(clef, objetATransformer) {
     let stringObtenue = JSON.stringify(objetATransformer); //on transforme l'objet en string
