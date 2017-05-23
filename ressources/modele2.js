@@ -25,16 +25,10 @@ function invocationCreature(nom, nature) {
     let laCreature = new Creature(nom, nature);
 
     //on calcule le nombre de créatures possédées : à faire
-    let nbCreatures = localStorage.length;
-
-    if (nbCreatures === 0) {
-        nbCreatures += 1;
-    }
+    //problème : si suppression de la 3ème créature, tout se décalera
+    let nbCreatures = localStorage.length + 1;
 
     let clefCreature = "creature" + nbCreatures;
-
-    console.log(clefCreature);
-    console.log(laCreature);
 
     sauvegarderDsLocalStorage(clefCreature, laCreature);
 
@@ -47,10 +41,22 @@ function boutonRevoquerCreatures() {
 
     boutonRevoque.addEventListener("click", function() {
         //à terme, utiliser plutôt localStorage.removeItem('nomDeCreature') ;
-        localStorage.clear();
+        let clef = localStorage.getItem("creatureActuelle");
+        localStorage.removeItem(clef);
+        localStorage.removeItem("creatureActuelle");
         location.reload();
     });
 
+}
+
+function boutonSauvegarderCreature(nomCreature) {
+    let boutonSauve = document.getElementById("boutonSave");
+
+    boutonSauve.addEventListener("click", function() {
+        let clef = localStorage.getItem("creatureActuelle");
+        sauvegarderDsLocalStorage(clef, nomCreature);
+        alert("Sauvegarde effectuée");
+    });
 }
 
 /*Prototype de créature*/
@@ -150,6 +156,17 @@ function statsSansExces(valeur) {
         return valeur;
     }
 }
+
+//fonction temporelle (baisse des stats au fur et à mesure du temps)
+function tempsQuiPasse(creature) {
+    //baisse des stats régulière
+    creature.stats.faim -= 2;
+    creature.stats.hygiene -= 0.5;
+    creature.stats.amusement -= 0.75;
+    creature.stats.sommeil -= 1;
+    afficheJaugesStats(creature);
+}
+
 
 /* Gestion des sauvegardes de la créature */
 function sauvegarderDsLocalStorage(clef, objetATransformer) {

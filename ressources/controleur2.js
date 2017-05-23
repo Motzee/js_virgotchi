@@ -23,7 +23,19 @@ switch (typePage) {
         afficheJaugesStats(laCreature);
 
         debugStats(laCreature);
+
+        boutonSauvegarderCreature(laCreature);
+
+        //fonctions temporelles
+        let baisseStats = setInterval(function() {
+            tempsQuiPasse(laCreature);
+            debugStats(laCreature);
+            afficheJaugesStats(laCreature);
+        }, 2000);
+
         boutonRevoquerCreatures();
+
+
 
         /*Evenements : clic sur des boutons d'action*/
         let boutonNourrit = document.getElementById("actionNourrit");
