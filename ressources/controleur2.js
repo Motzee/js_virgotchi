@@ -15,9 +15,12 @@ switch (typePage) {
     case "ecranCreature":
         let laCreature = restaurerObjetDuLocalStorage(localStorage.getItem("creatureActuelle"));
         console.log(laCreature);
+
+        let age = 1; //age à calculer
+        afficherInfosCreature(laCreature.nom, laCreature.nature, age);
+        avatarCreature(laCreature.nom, laCreature.nature, laCreature.stade)
         boutonRevoquerCreatures();
 
-        afficherInfosCreature(laCreature.nom, laCreature.nature, 1);
         break;
 
     default:

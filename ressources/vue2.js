@@ -53,5 +53,34 @@ function afficherInfosCreature(nom, type, dateNais) {
     infosCreature.appendChild(nomCreature);
     infosCreature.appendChild(vieCreature);
 
+}
 
+
+
+//affichage de la créature en fonction de son stade
+function avatarCreature(nom, nature, stade) {
+    let figureCreature = document.getElementById("imgCreature");
+    figureCreature.textContent = "";
+    let apercuCreature = new Image();
+
+    let nanoda = ["cybunny_bebe.png", "cybunny_jeune.png", "cybunny_ado.png"];
+
+    let ruruka = ["ruruka_bebe.png", "ruruka_ado.png", "ruruka_adulte.png"];
+    let lienAvatar = "";
+    switch (nature) {
+        case "nanoda":
+            lienAvatar = "img/" + nanoda[stade];
+            break;
+        case "ruruka":
+            lienAvatar = "img/" + ruruka[stade];
+            break;
+        default:
+            alert("erreur dans le choix de l'avatar");
+    }
+
+
+    apercuCreature.src = lienAvatar;
+    apercuCreature.alt = nom + ", au stade " + stade;
+
+    figureCreature.appendChild(apercuCreature);
 }
