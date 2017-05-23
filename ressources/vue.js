@@ -18,6 +18,8 @@ function affichageEcrans() {
         document.body.appendChild(cadreCreature);
 
         boutonRevoquerCreatures();
+
+        //il faudra voir pour appeler localStorage.getItem("creature1") avec le numéro du truc choisi
     }
 
     //si une seule créature
@@ -26,6 +28,6 @@ function affichageEcrans() {
         cadreCreature.innerHTML = '<main><section id="screenCreature"><div id="infosCreature"></div><aside id="statsCreature"><div id="statFaim" class="jauge"></div><div id="statHygiene" class="jauge"></div><div id="statAmuse" class="jauge"></div><div id="statSommeil" class="jauge"></div></aside><figure id="imgCreature"></figure></section><section id="menuInteractions"><ul id="listeActions"><li id="actionNourrit" class="action">Nourrir</li><li id="actionNettoie" class="action">Nettoyer</li><li id="actionDodo" class="action">Faire dormir</li><li id="actionCajole" class="action">Cajoler</li><li id="actionJoue" class="action">Jouer</li><li id="actionEnseigne" class="action">Faire étudier</li><li id="actionRevoquer" title="Révoquer la créature">[X]</li></ul></section></main>';
         document.body.appendChild(cadreCreature);
         boutonRevoquerCreatures();
-
+        console.log(localStorage.getItem("creature1"));
     }
 }
