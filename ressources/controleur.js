@@ -1,89 +1,93 @@
 affichageEcrans();
 
+let typePage = document.querySelector("main").id;
+switch (typePage) {
+    case "pageCreation":
+        boutonInvoquerCreature();
+        break;
 
-/*
-switch (choixPlayer) {
-        case "nanoda":
-            creature = new Creature(2, "Nanoda", ["cybunny_bebe.png", "cybunny_jeune.png", "cybunny_ado.png"]);
-            break;
-        case "ruruka":
-            creature = new Creature(1, "Ruruka", dateNaissance, ["ruruka_bebe.png", "ruruka_ado.png", "ruruka_adulte.png"]);
-            break;
-        default:
-            creature = ruruka;
-    }
+        //plusieurs créatures
+    case "pageChoixCreature":
+        //non prévu pour l'instant
+        break;
 
-    let cadreCreation = document.getElementById("creationCreature");
-    cadreCreation.className = "disappear";
+        //une seule créature
+    case "ecranCreature":
+        let laCreature = restaurerObjetDuLocalStorage(localStorage.getItem("creatureActuelle"));
+        console.log(laCreature);
 
-    
+        let age = 1; //age à calculer
+        afficherInfosCreature(laCreature.nom, laCreature.nature, age);
+        avatarCreature(laCreature.nom, laCreature.nature, laCreature.stade);
+        afficheStats();
+        afficheJaugesStats(laCreature);
 
-avatarCreature(creature);
-afficherInfosCreature(creature);
-afficheJaugesStats(creature);
+        debugStats(laCreature);
 
-//affichage des stats (peut-être temporaire)
-debugStats(creature);
+        boutonSauvegarderCreature(laCreature);
 
-//fonctions temporelles
-let baisseStats = setInterval(function() {
-    tempsQuiPasse(creature);
-    debugStats(creature);
-    afficheJaugesStats(creature);
-}, 2000);
+        //fonctions temporelles
+        let baisseStats = setInterval(function() {
+            tempsQuiPasse(laCreature);
+            debugStats(laCreature);
+            afficheJaugesStats(laCreature);
+        }, 2000);
 
-let vieillit = setInterval(function() {
-    calculAge(creature);
-}, 5000);
+        boutonRevoquerCreatures();
 
 
-let test = setInterval(function() {
-    momentEvolution(creature);
-}, 10000);
 
-*/
+        /*Evenements : clic sur des boutons d'action*/
+        let boutonNourrit = document.getElementById("actionNourrit");
+        let boutonNettoie = document.getElementById("actionNettoie");
+        let boutonDodo = document.getElementById("actionDodo");
+        let boutonCajole = document.getElementById("actionCajole");
+        let boutonJoue = document.getElementById("actionJoue");
+        let boutonEnseigne = document.getElementById("actionEnseigne");
 
-/*Evenements : clic sur des boutons d'action*/
-/*
-//Nourrir
-boutonNourrit.addEventListener("click", function() {
-    nourrir(creature);
-    debugStats(creature);
-    afficheJaugesStats(creature);
-});
+        //Nourrir
+        boutonNourrit.addEventListener("click", function() {
+            nourrir(laCreature);
+            debugStats(laCreature);
+            afficheJaugesStats(laCreature);
+        });
 
-//Nettoyer
-boutonNettoie.addEventListener("click", function() {
-    nettoyer(creature);
-    debugStats(creature);
-    afficheJaugesStats(creature);
-});
+        //Nettoyer
+        boutonNettoie.addEventListener("click", function() {
+            nettoyer(laCreature);
+            debugStats(laCreature);
+            afficheJaugesStats(laCreature);
+        });
 
-//Faire dormir
-boutonDodo.addEventListener("click", function() {
-    faireDormir(creature);
-    debugStats(creature);
-    afficheJaugesStats(creature);
-});
+        //Faire dormir
+        boutonDodo.addEventListener("click", function() {
+            faireDormir(laCreature);
+            debugStats(laCreature);
+            afficheJaugesStats(laCreature);
+        });
 
-//Cajoler
-boutonCajole.addEventListener("click", function() {
-    cajoler(creature);
-    debugStats(creature);
-    afficheJaugesStats(creature);
-});
+        //Cajoler
+        boutonCajole.addEventListener("click", function() {
+            cajoler(laCreature);
+            debugStats(laCreature);
+            afficheJaugesStats(laCreature);
+        });
 
-//Jouer
-boutonJoue.addEventListener("click", function() {
-    jouer(creature);
-    debugStats(creature);
-    afficheJaugesStats(creature);
-});
-//Faire étudier
-boutonEnseigne.addEventListener("click", function() {
-    faireEtudier(creature);
-    debugStats(creature);
-    afficheJaugesStats(creature);
-});
+        //Jouer
+        boutonJoue.addEventListener("click", function() {
+            jouer(laCreature);
+            debugStats(laCreature);
+            afficheJaugesStats(laCreature);
+        });
+        //Faire étudier
+        boutonEnseigne.addEventListener("click", function() {
+            faireEtudier(laCreature);
+            debugStats(laCreature);
+            afficheJaugesStats(laCreature);
+        });
 
-*/
+        break;
+
+    default:
+        console.log("erreur dans la sélection de l'écran");
+}
