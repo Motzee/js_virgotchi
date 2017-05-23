@@ -39,7 +39,7 @@ function invocationCreature(nom, nature) {
     console.log(laCreatureSTRING);
 
     //stockage dans le localStorage
-    let numeroCreature = "creature1"; //la passer en minuscules
+    let numeroCreature = "creature1";
 
     localStorage.setItem(numeroCreature, laCreatureSTRING);
 }
@@ -78,6 +78,111 @@ function Creature(nom, natureuh) {
     };
 
 }
+
+/*Fonctions d'interaction*/
+let nourrir = function(nom) {
+    nom.stats.faim += 60;
+    nom.stats.faim = statsSansExces(nom.stats.faim);
+    nom.stats.hygiene -= 5;
+    nom.stats.hygiene = statsSansExces(nom.stats.hygiene);
+}
+
+let nettoyer = function(nom) {
+    nom.stats.hygiene += 50;
+    nom.stats.hygiene = statsSansExces(nom.stats.hygiene);
+}
+
+let faireDormir = function(nom) {
+    nom.stats.sommeil += 80;
+    nom.stats.sommeil = statsSansExces(nom.stats.sommeil);
+    nom.stats.faim -= 30;
+    nom.stats.faim = statsSansExces(nom.stats.faim);
+    nom.stats.amusement -= 20;
+    nom.stats.amusement = statsSansExces(nom.stats.amusement);
+}
+
+let cajoler = function(nom) {
+    nom.stats.amusement += 10;
+    nom.stats.amusement = statsSansExces(nom.stats.amusement);
+    nom.traits.attachement += 1;
+    nom.traits.gentillesse += 1;
+    nom.traits.intelligence += 1;
+
+}
+
+let jouer = function(nom) {
+    nom.stats.amusement += 50;
+    nom.stats.amusement = statsSansExces(nom.stats.amusement);
+    nom.stats.sommeil -= 30;
+    nom.stats.sommeil = statsSansExces(nom.stats.sommeil);
+    nom.stats.hygiene -= 15;
+    nom.stats.hygiene = statsSansExces(nom.stats.hygiene);
+    nom.traits.force += 2;
+}
+
+let faireEtudier = function(nom) {
+    nom.stats.amusement -= 10;
+    nom.stats.amusement = statsSansExces(nom.stats.amusement);
+    nom.stats.sommeil -= 30;
+    nom.stats.sommeil = statsSansExces(nom.stats.sommeil);
+    nom.stats.faim -= 20;
+    nom.stats.faim = statsSansExces(nom.stats.faim);
+    nom.traits.intelligence += 3;
+}
+
+/*fonctions automatiques*/
+
+//régulation des stats (gérer les extrèmes)
+function statsSansExces(valeur) {
+    if (valeur > 120) {
+        valeur = 120;
+        return valeur;
+    } else if (valeur < -20) {
+        valeur = -20;
+        return valeur;
+    } else {
+        return valeur;
+    }
+}
+
+//fonction temporelle (baisse des stats au fur et à mesure du temps)
+function tempsQuiPasse(creature) {
+    //baisse des stats régulière
+    creature.stats.faim -= 2;
+    creature.stats.hygiene -= 0.5;
+    creature.stats.amusement -= 0.75;
+    creature.stats.sommeil -= 1;
+    afficheJaugesStats(creature);
+
+}
+//vieillissement quotidien (actuellement : gain de jours, mais faire plutôt temps actuel moins temps de création moins)
+function calculAge(creature) {
+    console.log("La bestiole est née le :" + creature.age);
+    let naissance = creature.age;
+    /*let naissance = creature.age.getTime();*/
+    let aujourdHui = new Date();
+    console.log("voici aujourd'hui : " + aujourdHui);
+    let age = new Number((aujourdHui.getTime() - naissance.getTime()) / 31536000000).toFixed(0);
+    console.log(age);
+    return age;
+
+}
+
+//evolution
+function momentEvolution(creature) {
+    let age = calculAge(creature);
+    //changement artificiel de stade pour simule rune évolution
+    if (age > 1) {
+        creature.stade += 1;
+    }
+    creature.stade += 1;
+    if (creature.stade > creature.galerie.length - 1) {
+        creature.stade = creature.galerie.length - 1;
+    }
+    avatarCreature(creature)
+}
+
+
 
 //fonction de création de nb aléatoire dans un intervalle
 function nbAleaBornesInclues(min, max) {

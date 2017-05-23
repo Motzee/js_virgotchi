@@ -109,6 +109,10 @@ figure>img {
 
 /* menu d'actions*/
 
+#boutonSave {
+    height: 2rem;
+}
+
 #menuInteractions {
     height: 3rem;
 }

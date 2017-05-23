@@ -31,3 +31,81 @@ function affichageEcrans() {
         console.log(localStorage.getItem("creature1"));
     }
 }
+
+//boutons d'interaction
+let boutonNourrit = document.getElementById("actionNourrit");
+let boutonNettoie = document.getElementById("actionNettoie");
+let boutonDodo = document.getElementById("actionDodo");
+let boutonCajole = document.getElementById("actionCajole");
+let boutonJoue = document.getElementById("actionJoue");
+let boutonEnseigne = document.getElementById("actionEnseigne");
+
+//affichage de la créature en fonction de son stade
+function avatarCreature(nom) {
+    let figureCreature = document.getElementById("imgCreature");
+    figureCreature.textContent = "";
+    let apercuCreature = new Image();
+    let lienAvatar = "img/" + nom.galerie[nom.stade];
+    apercuCreature.src = lienAvatar;
+    apercuCreature.alt = nom.nom + ", au stade " + nom.stade;
+
+    figureCreature.appendChild(apercuCreature);
+}
+
+//affichage des statistiques créature
+let statFaim = document.getElementById("statFaim");
+let statHygiene = document.getElementById("statHygiene");
+let statAmuse = document.getElementById("statAmuse");
+let statSommeil = document.getElementById("statSommeil");
+
+function debugStats(creature) {
+
+    statFaim.textContent = "";
+    statHygiene.textContent = "";
+    statAmuse.textContent = "";
+    statSommeil.textContent = "";
+
+    let niveauFaim = document.createElement("span");
+    niveauFaim.textContent = "faim : " + creature.stats.faim;
+    statFaim.appendChild(niveauFaim);
+
+    let niveauHygiene = document.createElement("span");
+    niveauHygiene.textContent = "hygiène : " + creature.stats.hygiene;
+    statHygiene.appendChild(niveauHygiene);
+
+    let niveauAmuse = document.createElement("span");
+    niveauAmuse.textContent = "amusé/e : " + creature.stats.amusement;
+    statAmuse.appendChild(niveauAmuse);
+
+    let niveauSommeil = document.createElement("span");
+    niveauSommeil.textContent = "sommeil : " + creature.stats.sommeil;
+    statSommeil.appendChild(niveauSommeil);
+}
+
+function ajusteJaugesStats(nomCreature, typeJauge) {
+    let nbPointsStat = nomCreature['stats'][typeJauge] + 20;
+    let aspectJauge = "linear-gradient(to right, transparent, transparent " + nbPointsStat + "px, white " + nbPointsStat + "px, white), linear-gradient(to right, #ca5f60, #d7cf88, #61a637)";
+    return aspectJauge;
+}
+
+function afficheJaugesStats(creature) {
+    statFaim.style.background = ajusteJaugesStats(creature, "faim");
+    statHygiene.style.background = ajusteJaugesStats(creature, "hygiene");
+    statAmuse.style.background = ajusteJaugesStats(creature, "amusement");
+    statSommeil.style.background = ajusteJaugesStats(creature, "sommeil");
+}
+
+//affichage infos créature (nom, age)
+function afficherInfosCreature(nom) {
+
+    let infosCreature = document.getElementById("infosCreature");
+
+    let vieCreature = document.createElement("p");
+    if (calculAge(creature) > 1) {
+        vieCreature.textContent = calculAge(creature) + " jours";
+    } else {
+        vieCreature.textContent = calculAge(creature) + " jour";
+    }
+    infosCreature.appendChild(vieCreature);
+
+}
