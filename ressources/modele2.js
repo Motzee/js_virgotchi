@@ -161,11 +161,17 @@ function statsSansExces(valeur) {
 function tempsQuiPasse(creature) {
     //baisse des stats régulière
     creature.stats.faim -= 2;
+    creature.stats.faim = statsSansExces(creature.stats.faim);
     creature.stats.hygiene -= 0.5;
+    creature.stats.hygiene = statsSansExces(creature.stats.hygiene);
     creature.stats.amusement -= 0.75;
+    creature.stats.amusement = statsSansExces(creature.stats.amusement);
     creature.stats.sommeil -= 1;
+    creature.stats.sommeil = statsSansExces(creature.stats.sommeil);
+
     afficheJaugesStats(creature);
 }
+
 
 
 /* Gestion des sauvegardes de la créature */
@@ -184,6 +190,10 @@ function restaurerObjetDuLocalStorage(stringATransformer) {
     return objetObtenu;
 }
 
+//si fermeture, sauvegarde :
+window.addEventListener("unload", function() {
+    alert("Fermetuuuuure !");
+})
 
 /* Fonctions atomiques*/
 

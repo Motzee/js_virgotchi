@@ -33,6 +33,10 @@ switch (typePage) {
             afficheJaugesStats(laCreature);
         }, 2000);
 
+        let sauvegardeReguliere = setInterval(function() {
+            sauvegarderDsLocalStorage(localStorage.getItem("creatureActuelle"), laCreature);
+        }, 15000);
+
         boutonRevoquerCreatures();
 
 
